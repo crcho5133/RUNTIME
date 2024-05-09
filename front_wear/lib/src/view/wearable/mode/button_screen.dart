@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:front_wear/src/service/theme_service.dart';
+import 'package:front_wear/src/view/wearable/battle/battle_page.dart';
+import 'package:front_wear/src/view/wearable/mode/custom_elevated_button.dart';
 
 class ButtonScreen extends ConsumerWidget {
   const ButtonScreen({
@@ -10,12 +12,28 @@ class ButtonScreen extends ConsumerWidget {
     required this.color,
     required this.btn,
   });
+  // const CustomElevatedButton({
+  //   super.key,
+  //   required this.text,
+  //   required this.backgroundColor,
+  //   required this.textColor,
+  //   required this.onPressed,
+  //   this.width = 150,
+  //   this.height = 60,
+  //   this.fontSize = 20,
+
+  // });
 
   final String title;
   final Color color;
   final String btn;
 
-  @override
+    // final String text;
+    // final Color backgroundColor;
+    // final Color textColor;
+    // final VoidCallback onPressed;
+@override
+
   Widget build(BuildContext context, WidgetRef ref) {
     return ProviderScope(
       child: Scaffold(
@@ -69,26 +87,34 @@ class ButtonScreen extends ConsumerWidget {
           padding: const EdgeInsets.only(top: 15),
           child: Align(
             alignment: Alignment.topCenter, // 버튼 위치
-            child: ElevatedButton(
+            child: CustomElevatedButton(
+              text:btn,
+              backgroundColor: color,
+              textColor: ref.color.wTextB,
+
               onPressed: () {
                 // 버튼 클릭시 수행할 액션
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BattlePage()),
+                );
               }, // 버튼 클릭 이벤트
 
-              style: ElevatedButton.styleFrom(
+              //style: ElevatedButton.styleFrom(
 
                   // 버튼 스타일
                   // padding: // 버튼 패딩 조절
                   //     const EdgeInsets.symmetric(horizontal: 38, vertical: 18),
-                  elevation: 0, // 그림자 없애기
-                  backgroundColor: color,
-                  fixedSize: const Size(150, 60)),
-              child: Text(
-                btn,
-                style: ref.typo.appBarMainTitle.copyWith(
-                  color: ref.color.wTextB,
-                  fontSize: 20,
-                ),
-              ),
+                  //elevation: 0, // 그림자 없애기
+                
+                  //fixedSize: const Size(150, 60)),
+              // child: Text(
+              //   btn,
+              //   style: ref.typo.appBarMainTitle.copyWith(
+              //     color: ref.color.wTextB,
+              //     fontSize: 20,
+              //   ),
+              // ),
             ),
           ),
         ),

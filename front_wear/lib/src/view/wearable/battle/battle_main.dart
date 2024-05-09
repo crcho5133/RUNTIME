@@ -12,6 +12,17 @@ class BattleMain extends ConsumerWidget {
       title: '배틀모드',
       color: ref.color.wBattleMode,
       btn: '상대찾기',
+
+      
     );
+// void a(){
+//        Button(onPress: () => Navigator.pushNamed(context, routeName),) 
+//       }
+    // return CustomElevatedButton(
+    //   text: '상대찾기',
+    //   backgroundColor: ref.color.wBattleMode,
+    //   textColor: ref.color.wTextB,
+    //   onPressed: onPressed,
+    // );
   }
 }

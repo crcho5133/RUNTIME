@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:front_wear/src/view/wearable/battle/battle_main.dart';
-import 'package:front_wear/src/view/wearable/battle/battle_page.dart';
-import 'package:front_wear/src/view/wearable/practice/practice_page.dart';
-import 'package:front_wear/src/view/wearable/user/user_page.dart';
 
 void main() async {
   runApp(const ProviderScope(child: MyApp()));

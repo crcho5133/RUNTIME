@@ -16,7 +16,7 @@ class BattlePage extends ConsumerStatefulWidget {
 class _BattlePageState extends ConsumerState<BattlePage> {
   late Stopwatch _stopwatch;
   late Timer _timer;
-  String _elapsedTime = '00:00';
+  String _elapsedTime = '0:00';
 
   @override
   void initState() {
@@ -43,10 +43,8 @@ class _BattlePageState extends ConsumerState<BattlePage> {
     final int hundreds = (milliseconds / 10).truncate();
     final int seconds = (hundreds / 100).truncate();
     final int minutes = (seconds / 60).truncate();
-    //final int hours = (minutes / 60).truncate();
 
-    //final String hoursStr = (hours % 24).toString().padLeft(2, '0');
-    final String minutesStr = (minutes % 60).toString().padLeft(2, '0');
+    final String minutesStr = (minutes % 60).toString().padLeft(1, '0');
     final String secondsStr = (seconds % 60).toString().padLeft(2, '0');
 
     return "$minutesStr:$secondsStr";
@@ -75,36 +73,37 @@ class _BattlePageState extends ConsumerState<BattlePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              '상대를 찾는 중..',
-              style: ref.typo.body2,
+            Column(
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  '상대를 찾는 중..',
+                  style: ref.typo.wSubTitle.copyWith(
+                    color: ref.color.wBattleMode,
+                  ),
+                ),
+                Text(
+                  _elapsedTime,
+                  style: ref.typo.wCounter,
+                ),
+              ],
             ),
-            Text(
-              _elapsedTime,
-              style: ref.typo.ranking,
+            const SizedBox(
+              height: 5,
             ),
-            // const SizedBox(height: 24),
             ElevatedButton(
               onPressed: _stopStopwatch,
-              child: Stack(
-                // 위젯 겹치기 위해
-                alignment: Alignment.center, // 증앙 배치
-                children: [
-                  Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: ref.color.wDeny,
-                    ),
-                  ),
-                  SvgPicture.asset(
-                    // icon 사용
-                    'assets/icons/Cancel.svg',
-                    width: 7,
-                    height: 7,
-                  ),
-                ],
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(), backgroundColor: ref.color.wDeny,
+                padding: const EdgeInsets.all(20), // 버튼 배경색
+                elevation: 0,
+              ),
+              child: SvgPicture.asset(
+                'assets/icons/Cancel.svg',
+                width: 13,
+                height: 13,
               ),
             ),
           ],

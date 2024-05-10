@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PostLoad;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +34,9 @@ public class Member extends BaseEntity {
 	@Column(name = "id", nullable = false)
 	private Long id;
 
+	@Column(name="fcm_token")
+	private String fcmToken;
+
 	@Lob
 	@Column(name = "role")
 	@Enumerated(EnumType.STRING)
@@ -42,7 +46,7 @@ public class Member extends BaseEntity {
 	private String nickname;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "character_id")
+	@JoinColumn(name = "character_id", nullable = false)
 	private Character character;
 
 	@Column(name = "email", length = 100,unique = true)
@@ -61,6 +65,7 @@ public class Member extends BaseEntity {
 	@ColumnDefault("0")
 	private Integer consecutiveGames;
 
+
 	public void updateNickname(String nickname) {
 		this.nickname = nickname;
 	}
@@ -72,4 +77,10 @@ public class Member extends BaseEntity {
 	public void updateTierScore(int score) { this.tierScore = score; }
 
 	public void updateConsecutive(int consecutive) { this.consecutiveGames = consecutive; }
+
+	public void updateCharacter(Character character) { this.character = character; }
+
+	public void updateFcmToken(String fcmToken) {
+		this.fcmToken = fcmToken;
+	}
 }

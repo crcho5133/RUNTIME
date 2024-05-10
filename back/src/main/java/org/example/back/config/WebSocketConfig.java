@@ -19,16 +19,16 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOriginPatterns("*"); // TODO 특정 출처만 허용
-//                .withSockJS(); 이거 있으면 socket 연결이 안 된다: 왜?
+                .setAllowedOriginPatterns("*") // TODO 특정 출처만 허용
+                .withSockJS(); //  이거 있으면 socket 연결이 안 된다: 왜?
         registry.setErrorHandler(stompErrorHandler);
 
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker( "/member");
-        registry.setApplicationDestinationPrefixes("/stomp");
+        registry.enableSimpleBroker( "/topic", "/queue");
+        registry.setApplicationDestinationPrefixes("/pub");
     }
 
     @Override

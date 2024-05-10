@@ -150,6 +150,26 @@ class S {
     );
   }
 
+  /// `Detail`
+  String get recordDetail {
+    return Intl.message(
+      'Detail',
+      name: 'recordDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Statistics`
+  String get statistics {
+    return Intl.message(
+      'Statistics',
+      name: 'statistics',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Profile`
   String get profile {
     return Intl.message(
@@ -380,10 +400,10 @@ class S {
     );
   }
 
-  /// `확인`
+  /// `Done`
   String get done {
     return Intl.message(
-      '확인',
+      'Done',
       name: 'done',
       desc: '',
       args: [],
@@ -395,6 +415,296 @@ class S {
     return Intl.message(
       '정말로 취소하시겠습니까?',
       name: 'ReallyCancelQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `정말로 포기하시겠습니까?\n완료 보상을 획득할 수 없습니다.`
+  String get ReallyGiveUpQuestion {
+    return Intl.message(
+      '정말로 포기하시겠습니까?\n완료 보상을 획득할 수 없습니다.',
+      name: 'ReallyGiveUpQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are no rooms Now\nTry later`
+  String get roomEmpty {
+    return Intl.message(
+      'There are no rooms Now\nTry later',
+      name: 'roomEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Make Room`
+  String get makeRoom {
+    return Intl.message(
+      'Make Room',
+      name: 'makeRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting`
+  String get waiting {
+    return Intl.message(
+      'Waiting',
+      name: 'waiting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In Progress`
+  String get inProgress {
+    return Intl.message(
+      'In Progress',
+      name: 'inProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finding Room`
+  String get findRoom {
+    return Intl.message(
+      'Finding Room',
+      name: 'findRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter search term`
+  String get EnterSearchTerm {
+    return Intl.message(
+      'Enter search term',
+      name: 'EnterSearchTerm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Making Room`
+  String get makingRoom {
+    return Intl.message(
+      'Making Room',
+      name: 'makingRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Public Room`
+  String get publicRoom {
+    return Intl.message(
+      'Public Room',
+      name: 'publicRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Private Room`
+  String get privateRoom {
+    return Intl.message(
+      'Private Room',
+      name: 'privateRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password can be up to 20 characters long.`
+  String get roomPasswordRule {
+    return Intl.message(
+      'The password can be up to 20 characters long.',
+      name: 'roomPasswordRule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `password`
+  String get password {
+    return Intl.message(
+      'password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Room Name`
+  String get roomName {
+    return Intl.message(
+      'Room Name',
+      name: 'roomName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `capacity`
+  String get capacity {
+    return Intl.message(
+      'capacity',
+      name: 'capacity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `distance`
+  String get distance {
+    return Intl.message(
+      'distance',
+      name: 'distance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `create`
+  String get create {
+    return Intl.message(
+      'create',
+      name: 'create',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `waiting room`
+  String get waitingRoom {
+    return Intl.message(
+      'waiting room',
+      name: 'waitingRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Game Start`
+  String get gameStart {
+    return Intl.message(
+      'Game Start',
+      name: 'gameStart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `invite`
+  String get invite {
+    return Intl.message(
+      'invite',
+      name: 'invite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `manager`
+  String get manager {
+    return Intl.message(
+      'manager',
+      name: 'manager',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ready`
+  String get ready {
+    return Intl.message(
+      'ready',
+      name: 'ready',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `nickName`
+  String get nickname {
+    return Intl.message(
+      'nickName',
+      name: 'nickname',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `set nickname`
+  String get nicknameSetting {
+    return Intl.message(
+      'set nickname',
+      name: 'nicknameSetting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Profile`
+  String get profileEdit {
+    return Intl.message(
+      'Edit Profile',
+      name: 'profileEdit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weight(optional)`
+  String get weight {
+    return Intl.message(
+      'Weight(optional)',
+      name: 'weight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `nickname should be 4 ~ 12 length`
+  String get nicknameRule {
+    return Intl.message(
+      'nickname should be 4 ~ 12 length',
+      name: 'nicknameRule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `입력한 몸무게는 칼로리 계산에만 사용됩니다.`
+  String get weightRule {
+    return Intl.message(
+      '입력한 몸무게는 칼로리 계산에만 사용됩니다.',
+      name: 'weightRule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get editProfileDone {
+    return Intl.message(
+      'Done',
+      name: 'editProfileDone',
       desc: '',
       args: [],
     );

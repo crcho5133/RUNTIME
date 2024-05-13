@@ -3,7 +3,6 @@
     "cupertino",
     "dotenv",
     "Geolocator",
-    "Infor",
     "Kakao",
     "Pretendard",
     "riverpod"
@@ -11,6 +10,5 @@
   "editor.tokenColorCustomizations": {
     "comments": "",
     "textMateRules": []
-  },
-  "cmake.configureOnOpen": false
+  }
 }

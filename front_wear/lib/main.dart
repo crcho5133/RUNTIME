@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:front_wear/src/service/bluetooth_permission_service.dart';
 import 'package:front_wear/src/view/wearable/battle/battle_main.dart';
 
 void main() async {
   runApp(const ProviderScope(child: MyApp()));
+
+  var bluetoothService = BluetoothPermissionService();
+  bluetoothService.startScan();
 }
 
 class MyApp extends ConsumerWidget {

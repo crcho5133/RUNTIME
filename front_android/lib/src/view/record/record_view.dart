@@ -23,6 +23,7 @@ class _RecordViewState extends ConsumerState<RecordView> {
     super.initState();
     // 위젯 빌드 후 실행(viewModel 받와야 사용 가능)
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      viewModel.clearRecordList();
       viewModel.fetchRecordList(
         gameMode: viewModel.gameMode,
         pageSize: 10,

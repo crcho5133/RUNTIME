@@ -12,7 +12,7 @@ import 'package:front_android/src/service/battle_data_service.dart';
 import 'package:front_android/src/service/https_request_service.dart';
 import 'package:front_android/src/service/tts_service.dart';
 import 'package:front_android/src/service/user_service.dart';
-import 'package:front_android/theme/components/dialog/cancel_dialog.dart';
+import 'package:front_android/src/view/battle/widgets/give_up_dialog.dart';
 import 'package:front_android/util/helper/battle_helper.dart';
 import 'package:front_android/util/helper/extension.dart';
 import 'package:front_android/util/helper/route_path_helper.dart';
@@ -89,7 +89,7 @@ class BattleViewModel with ChangeNotifier {
   double get targetDistance => _battleData.targetDistance;
 
   double _avgPace = 0;
-  double get avgPace => _avgPace;
+  int get avgPace => (_avgPace * 100).toInt();
 
   double _calorie = 0;
 
@@ -235,7 +235,7 @@ class BattleViewModel with ChangeNotifier {
           'distance': double.parse((currentDistance / 1000).toStringAsFixed(2)),
           'runStartTime': _startTime.toIso8601String(),
           'runEndTime': _currentTime.toIso8601String(),
-          'pace': avgPace.toInt(),
+          'pace': avgPace,
           'calorie': double.parse(calorie).toInt(),
           'file': multipartFile,
         },

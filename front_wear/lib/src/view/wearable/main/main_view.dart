@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:front_wear/src/view/wearable/mode/main_screen.dart';
 import 'package:intl/intl.dart';
 
 
@@ -14,6 +15,7 @@ class MainView extends ConsumerWidget {
       child: Scaffold(
         body: Column(
           children: [
+            //MainScreen(title: title, color: color, btn: btn, nextPage: nextPage)
             Image.asset('assets/image/hedgehog.png'),
             const ClockScreen(),
           ],

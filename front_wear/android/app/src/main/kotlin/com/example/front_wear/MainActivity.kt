@@ -6,35 +6,45 @@ import io.flutter.plugin.common.MethodChannel
 
 
 class MainActivity: FlutterActivity() {
-    // private val CHANNEL = "com.example.your_project/channel"
 
-    //     private lateinit var bluetoothManager: BluetoothManager
-    // private lateinit var bluetoothAdapter: BluetoothAdapter
+    val bluetoothManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
+val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.getAdapter()
+if (bluetoothAdapter == null) {
+  // Device doesn't support Bluetooth
+}
+if (bluetoothAdapter?.isEnabled == false) {
+  val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+  startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+}
+    private val CHANNEL = "com.example.your_project/channel"
 
-    // override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
-    //     super.configureFlutterEngine(flutterEngine)
+        private lateinit var bluetoothManager: BluetoothManager
+    private lateinit var bluetoothAdapter: BluetoothAdapter
 
-    //     bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-    //     bluetoothAdapter = bluetoothManager.adapter
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
 
-    //     MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
-    //         call, result ->
-    //         if (call.method == bluetoothManager) {
-    //             val text = call.argument<String>("text")
-    //             val modifiedText = yourMethod(text!!)
-    //             result.success(modifiedText)
-    //         } else {
-    //             result.notImplemented()
-    //         }
-    //     }
-    // }
+        bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        bluetoothAdapter = bluetoothManager.adapter
 
-    // fun yourMethod(text: String): String {
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
+            call, result ->
+            if (call.method == bluetoothManager) {
+                val text = call.argument<String>("text")
+                val modifiedText = yourMethod(text!!)
+                result.success(modifiedText)
+            } else {
+                result.notImplemented()
+            }
+        }
+    }
 
-    //   if (!bluetoothAdapter.isEnabled) {
-    //         return "Bluetooth is not enabled."
-    //     }
+    fun yourMethod(text: String): String {
+
+      if (!bluetoothAdapter.isEnabled) {
+            return "Bluetooth is not enabled."
+        }
         
-    //     return "From Kotlin: $text with Bluetooth enabled"
-    // }
+        return "From Kotlin: $text with Bluetooth enabled"
+    }
 }

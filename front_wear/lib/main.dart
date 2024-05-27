@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:front_wear/src/service/wear_os_service.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  ConnectService.instance.listen();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -50,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(ConnectService.instance.message),
             Text(_response),
             TextButton(
               onPressed: callKotlinCode,

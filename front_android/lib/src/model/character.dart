@@ -3,7 +3,7 @@ class Character {
   String detail;
   String imgUrl;
   String name;
-  int achievementId;
+  String achievementName;
   bool isCheck;
   bool unlockStatus;
 
@@ -12,7 +12,7 @@ class Character {
     required this.detail,
     required this.imgUrl,
     required this.name,
-    required this.achievementId,
+    required this.achievementName,
     required this.isCheck,
     required this.unlockStatus,
   });
@@ -23,7 +23,7 @@ class Character {
       id: json['id'],
       imgUrl: json['imgUrl'],
       name: json['name'],
-      achievementId: json['achievementId'],
+      achievementName: json['achievementName'],
       isCheck: json['isCheck'],
       unlockStatus: json['unlockStatus'],
     );

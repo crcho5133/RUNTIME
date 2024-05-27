@@ -110,36 +110,40 @@ class _RankingViewState extends ConsumerState<RankingView> {
                 Stack(
                   children: [
                     Positioned(
+                      child: ClipRect(
                         child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Image.network(
-                        ranking.tierImage,
-                        fit: BoxFit.cover,
-                        height: 100.0,
-                        width: 150.0,
-                      ),
-                    )),
-                    Positioned(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              ranking.tierName,
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color: nameColor,
-                              ),
+                          padding: const EdgeInsets.all(10),
+                          child: Transform.scale(
+                            scale: 3,
+                            child: Image.network(
+                              ranking.tierImage,
+                              fit: BoxFit.contain,
+                              height: 160,
+                              width: 160,
                             ),
                           ),
-                          Expanded(
-                            child: Text(
-                              ranking.tierScore.toString(),
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color: nameColor,
-                              ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Spacer(),
+                          Text(
+                            ranking.tierName,
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: nameColor,
+                            ),
+                          ),
+                          Text(
+                            ranking.tierScore.toString(),
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: nameColor,
                             ),
                           ),
                         ],

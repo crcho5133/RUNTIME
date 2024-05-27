@@ -24,6 +24,7 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
     super.initState();
   }
 
+
 //캐릭터 리스트
   @override
   Widget build(BuildContext context) {
@@ -63,8 +64,12 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
                 return Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: ElevatedButton(
-                    onPressed: () => _showCharacterInfo(character.name,
-                        character.imgUrl, character.detail, character.isCheck),
+                    onPressed: () => _showCharacterInfo(
+                        character.name,
+                        character.imgUrl,
+                        character.detail,
+                        character.achievementName,
+                        character.unlockStatus),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -113,8 +118,8 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
   }
 
 //캐릭터 상세조회
-  void _showCharacterInfo(
-      String name, String image, String detail, bool isCheck) {
+  void _showCharacterInfo(String name, String image, String achievementName,
+      String detail, bool unlockStatus) {
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -127,7 +132,7 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
                 top: 1.0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    'assets/icons/cancel.svg',
+                    'assets/icons/cancelMild.svg',
                     width: 22,
                     height: 22,
                   ),
@@ -143,6 +148,11 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
             child: Column(
               children: [
                 Image.network(image, fit: BoxFit.contain),
+                SvgPicture.asset(
+                  'assets/icons/lock.svg',
+                  width: 22,
+                  height: 22,
+                ),
                 Text(
                   name,
                   style: const TextStyle(
@@ -156,8 +166,26 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
                     fontSize: 16,
                   ),
                 ),
-                // isCheck?ElevatedButton(onPressed: viewModel.setProfileCharacter(name);
-                //       Navigator.of(context).pop();, 
+                Text(
+                  detail,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        if (unlockStatus) {}
+                      });
+                    },
+                    child: const Text('대표 캐릭터 지정'),),
+                // unlockStatus?'null':SvgPicture.asset(
+                //   'assets/icons/lock.svg',
+                //   width: 22,
+                //   height: 22,
+                //),
+                // unlockStatus?ElevatedButton(onPressed: viewModel.setProfileCharacter(name);
+                //      Navigator.of(context).pop();,
                 //       child: viewModel.setProfileCharacter(name);
                 //       Navigator.of(context).pop();)
               ],

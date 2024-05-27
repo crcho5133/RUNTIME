@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:front_android/src/service/theme_service.dart';
 import 'package:front_android/src/view/character/character_view_model.dart';
+import 'package:front_android/theme/components/button.dart';
+import 'package:front_android/util/lang/generated/l10n.dart';
+import 'package:go_router/go_router.dart';
+import 'package:overflow_text_animated/overflow_text_animated.dart';
 
 class CharacterView extends ConsumerStatefulWidget {
   const CharacterView({super.key});
@@ -64,12 +69,8 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
                 return Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: ElevatedButton(
-                    onPressed: () => _showCharacterInfo(
-                        character.name,
-                        character.imgUrl,
-                        character.detail,
-                        character.achievementName,
-                        character.unlockStatus),
+                    onPressed: () => _showCharacterInfo(character.name,
+                        character.imgUrl, character.detail, character.isCheck),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -118,8 +119,8 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
   }
 
 //캐릭터 상세조회
-  void _showCharacterInfo(String name, String image, String achievementName,
-      String detail, bool unlockStatus) {
+  void _showCharacterInfo(
+      String name, String image, String detail, bool isCheck) {
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -132,7 +133,7 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
                 top: 1.0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    'assets/icons/cancelMild.svg',
+                    'assets/icons/cancel.svg',
                     width: 22,
                     height: 22,
                   ),
@@ -148,11 +149,6 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
             child: Column(
               children: [
                 Image.network(image, fit: BoxFit.contain),
-                SvgPicture.asset(
-                  'assets/icons/lock.svg',
-                  width: 22,
-                  height: 22,
-                ),
                 Text(
                   name,
                   style: const TextStyle(
@@ -166,26 +162,8 @@ class _CharacterViewState extends ConsumerState<CharacterView> {
                     fontSize: 16,
                   ),
                 ),
-                Text(
-                  detail,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        if (unlockStatus) {}
-                      });
-                    },
-                    child: const Text('대표 캐릭터 지정'),),
-                // unlockStatus?'null':SvgPicture.asset(
-                //   'assets/icons/lock.svg',
-                //   width: 22,
-                //   height: 22,
-                //),
-                // unlockStatus?ElevatedButton(onPressed: viewModel.setProfileCharacter(name);
-                //      Navigator.of(context).pop();,
+                // isCheck?ElevatedButton(onPressed: viewModel.setProfileCharacter(name);
+                //       Navigator.of(context).pop();, 
                 //       child: viewModel.setProfileCharacter(name);
                 //       Navigator.of(context).pop();)
               ],

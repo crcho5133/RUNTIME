@@ -99,24 +99,29 @@ final router = GoRouter(
       builder: (_, __) => const Practice(),
     ),
 
-    GoRoute(
-      path: RoutePathHelper.ranking,
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (_, __) => const RankingView(),
-    ),
-
     // 도전과제 보상 화면
 
     // 바텀내비게이션
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
-      builder: (_, __, child) => ScaffoldWithNavBar(child: child),
+      builder: (_, __, child) => ScaffoldWithNavBar(
+        key: UniqueKey(),
+        child: child,
+      ),
       routes: [
         GoRoute(
           path: RoutePathHelper.runMain,
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(child: RunMainView()),
+              NoTransitionPage(child: RunMainView(key: UniqueKey())),
+          routes: [
+            GoRoute(
+              path: 'ranking',
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const CupertinoPage(child: RankingView()),
+            ),
+          ],
         ),
         GoRoute(
           path: RoutePathHelper.achievement,
@@ -175,7 +180,7 @@ final router = GoRouter(
               path: 'edit',
               parentNavigatorKey: _rootNavigatorKey,
               pageBuilder: (context, state) =>
-                  const NoTransitionPage(child: ProfileEditView()),
+                  const CupertinoPage(child: ProfileEditView()),
             )
           ],
         ),

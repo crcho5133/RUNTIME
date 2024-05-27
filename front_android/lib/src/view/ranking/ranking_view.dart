@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:front_android/src/service/theme_service.dart';
 import 'package:front_android/src/view/ranking/ranking_view_model.dart';
+import 'package:front_android/src/view/ranking/widgets/ranking_list_card.dart';
+import 'package:front_android/util/lang/generated/l10n.dart';
+import 'package:go_router/go_router.dart';
 
 class RankingView extends ConsumerStatefulWidget {
   const RankingView({super.key});
@@ -17,6 +22,7 @@ class _RankingViewState extends ConsumerState<RankingView> {
     // characterRepository = CharacterRepository();
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
+        viewModel.clearRankingList();
         viewModel.getRankingList();
       },
     );
@@ -37,12 +43,15 @@ class _RankingViewState extends ConsumerState<RankingView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Top 10',
-          style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-          ),
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          color: ref.color.black,
+          icon: const Icon(Icons.arrow_back_ios_new),
+        ),
+        centerTitle: true,
+        title: Text(
+          S.current.ranking,
+          style: ref.typo.appBarSubTitle,
         ),
       ),
       body: ListView.builder(
@@ -110,40 +119,36 @@ class _RankingViewState extends ConsumerState<RankingView> {
                 Stack(
                   children: [
                     Positioned(
-                      child: ClipRect(
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Transform.scale(
-                            scale: 3,
-                            child: Image.network(
-                              ranking.tierImage,
-                              fit: BoxFit.contain,
-                              height: 160,
-                              width: 160,
-                            ),
-                          ),
-                        ),
+                      padding: const EdgeInsets.all(10),
+                      child: Image.network(
+                        ranking.tierImage,
+                        fit: BoxFit.cover,
+                        height: 100.0,
+                        width: 150.0,
                       ),
-                    ),
+                    )),
                     Positioned(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const Spacer(),
-                          Text(
-                            ranking.tierName,
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                              color: nameColor,
+                          Expanded(
+                            child: Text(
+                              ranking.tierName,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                                color: nameColor,
+                              ),
                             ),
                           ),
-                          Text(
-                            ranking.tierScore.toString(),
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                              color: nameColor,
+                          Expanded(
+                            child: Text(
+                              ranking.tierScore.toString(),
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                                color: nameColor,
+                              ),
                             ),
                           ),
                         ],

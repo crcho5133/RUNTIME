@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:front_android/src/service/theme_service.dart';
@@ -14,14 +15,30 @@ class AchievementView extends ConsumerStatefulWidget {
 
 class _AchievementViewState extends ConsumerState<AchievementView> {
   late AchievementViewModel viewModel;
+  late ConfettiController _confettiController;
   @override
   void initState() {
     super.initState();
     // 위젯 빌드 후 실행(viewModel 받와야 사용 가능)
+
+    _confettiController = ConfettiController(
+      duration: const Duration(seconds: 10),
+    );
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      viewModel.clearAchievementList();
       viewModel.fetchAchievementList();
       print(viewModel.achievementList);
+
+      _confettiController = ConfettiController(
+        duration: const Duration(seconds: 10),
+      );
     });
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
   }
 
   @override
@@ -34,14 +51,9 @@ class _AchievementViewState extends ConsumerState<AchievementView> {
           S.current.achievement,
           style: ref.typo.appBarMainTitle,
         ),
-        // actions: const [
-        //   Padding(
-        //     padding: EdgeInsets.only(right: 20),
-        //     child: SvgIcon('bell'),
-        //   ),
-        // ],
       ),
       body: AchievementList(
+        confettiController: _confettiController,
         achievementList: viewModel.achievementList,
         achievementCount: viewModel.achievementCount,
       ),

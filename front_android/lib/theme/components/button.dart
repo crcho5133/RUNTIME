@@ -10,16 +10,25 @@ class Button extends ConsumerStatefulWidget {
     required this.text,
     required this.backGroundColor,
     required this.fontColor,
+    this.radius,
+    this.height,
     this.width,
     bool? isInactive,
+    this.fontSize,
   }) : isInactive = isInactive ?? false;
 
   final void Function() onPressed;
   final String text;
   final Color backGroundColor;
   final Color fontColor;
+  final double? radius;
+  BorderRadius? get borderRadius => radius != null
+      ? BorderRadius.circular(radius!)
+      : BorderRadius.circular(10);
+  final double? height;
   final double? width;
   final bool isInactive;
+  final double? fontSize;
 
   @override
   ConsumerState<Button> createState() => _ButtonState();
@@ -40,9 +49,9 @@ class _ButtonState extends ConsumerState<Button> {
   bool get isInactive => isPressed || widget.isInactive;
 
   Color get backgroundColor =>
-      isInactive ? ref.color.inactive : widget.backGroundColor;
+      isInactive ? ref.palette.gray200 : widget.backGroundColor;
 
-  Color get color => widget.fontColor;
+  Color get color => isInactive ? ref.palette.gray400 : widget.fontColor;
 
   @override
   Widget build(BuildContext context) {
@@ -62,22 +71,27 @@ class _ButtonState extends ConsumerState<Button> {
         label: S.current.semanticsButton,
         hint: widget.text,
         child: AnimatedContainer(
-          height: 48,
+          height: widget.height ?? 48,
           duration: const Duration(
             milliseconds: 500,
           ),
           width: widget.width,
-          padding: const EdgeInsets.all(8),
+          // padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: widget.borderRadius ?? BorderRadius.circular(10),
           ),
           child: Center(
             child: Text(
               widget.text,
-              style: ref.typo.headline2.copyWith(
-                color: color,
-              ),
+              style: widget.fontSize == null
+                  ? ref.typo.headline2.copyWith(
+                      color: color,
+                    )
+                  : ref.typo.headline2.copyWith(
+                      fontSize: widget.fontSize!,
+                      color: color,
+                    ),
             ),
           ),
         ),

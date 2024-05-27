@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ko';
 
+  static String m0(achievement) => "${achievement} 성공시 획득";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "EnterSearchTerm": MessageLookupByLibrary.simpleMessage("검색어 입력"),
@@ -30,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "accept": MessageLookupByLibrary.simpleMessage("수락"),
         "achievement": MessageLookupByLibrary.simpleMessage("도전과제"),
         "amateur": MessageLookupByLibrary.simpleMessage("아마추어"),
-        "avgPace": MessageLookupByLibrary.simpleMessage("평균페이스"),
+        "avgPace": MessageLookupByLibrary.simpleMessage("평균 페이스"),
         "battleMode": MessageLookupByLibrary.simpleMessage("대결모드"),
         "beforeMatching":
             MessageLookupByLibrary.simpleMessage("나와 실력이 비슷한 사람과\n대전해보세요"),
@@ -40,10 +42,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("지금 바로 실시간으로 대결할 상대를 찾습니다"),
         "beginner": MessageLookupByLibrary.simpleMessage("비기너"),
         "bestRecord": MessageLookupByLibrary.simpleMessage("최고 기록"),
-        "calorieBurn": MessageLookupByLibrary.simpleMessage("소모칼로리"),
+        "calorieBurn": MessageLookupByLibrary.simpleMessage("소모 칼로리"),
         "cancel": MessageLookupByLibrary.simpleMessage("취소하기"),
         "capacity": MessageLookupByLibrary.simpleMessage("인원 수"),
         "character": MessageLookupByLibrary.simpleMessage("캐릭터"),
+        "characterAchievement": m0,
+        "characterAlreadyMain":
+            MessageLookupByLibrary.simpleMessage("메인 캐릭터입니다"),
+        "characterNotHave": MessageLookupByLibrary.simpleMessage("잠겨있음"),
+        "characterSelect": MessageLookupByLibrary.simpleMessage("대표 캐릭터로 선택"),
         "create": MessageLookupByLibrary.simpleMessage("만들기"),
         "currentLanguage": MessageLookupByLibrary.simpleMessage("한국어"),
         "deny": MessageLookupByLibrary.simpleMessage("거절"),
@@ -54,8 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "findRoom": MessageLookupByLibrary.simpleMessage("방찾기"),
         "friendAdd": MessageLookupByLibrary.simpleMessage("친구 추가하기"),
         "friendAlready": MessageLookupByLibrary.simpleMessage("요첨됨"),
-        "friendList": MessageLookupByLibrary.simpleMessage("친구 목록"),
-        "friendRequest": MessageLookupByLibrary.simpleMessage("친구 요청"),
+        "friendList": MessageLookupByLibrary.simpleMessage("친구목록"),
+        "friendRequest": MessageLookupByLibrary.simpleMessage("친구요청"),
         "friendRequest404":
             MessageLookupByLibrary.simpleMessage("친구 요청이 없습니다."),
         "gameStart": MessageLookupByLibrary.simpleMessage("게임시작"),
@@ -115,6 +122,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "weightRule":
             MessageLookupByLibrary.simpleMessage("입력한 몸무게는 칼로리 계산에만 사용됩니다."),
         "win": MessageLookupByLibrary.simpleMessage("승리"),
-        "worldClass": MessageLookupByLibrary.simpleMessage("월드 클래스")
+        "worldClass": MessageLookupByLibrary.simpleMessage("월드클래스")
       };
 }

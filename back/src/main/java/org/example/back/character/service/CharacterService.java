@@ -1,5 +1,7 @@
 package org.example.back.character.service;
 
+import java.util.List;
+
 import org.example.back.character.dto.CharacterListResDto;
 import org.example.back.character.dto.CharacterResDto;
 import org.example.back.character.dto.CharacterSetResDto;
@@ -24,63 +26,68 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class CharacterService {
 
-    private final CharacterRepository characterRepository;
-    private final UnlockedCharacterRepository unlockedCharacterRepository;
-    private final MemberRepository memberRepository;
+	private final CharacterRepository characterRepository;
+	private final UnlockedCharacterRepository unlockedCharacterRepository;
+	private final MemberRepository memberRepository;
 
-    private Member getMember() {  // 현재 사용 유저의 id 조회
-        Long id = SecurityUtil.getCurrentMemberId();
-        return memberRepository.findById(id).orElseThrow(MemberNotFoundException::new);
-    }
+	private Member getMember() {  // 현재 사용 유저의 id 조회
+		Long id = SecurityUtil.getCurrentMemberId();
+		return memberRepository.findById(id).orElseThrow(MemberNotFoundException::new);
+	}
 
-    public CharacterListResDto getCharacterList(Pageable page){
-        Long memberId = getMember().getId();
-         Page<CharacterResDto> characterPage = characterRepository.findAll(memberId, page);  // 페이지 엔티티 조회
-        return new CharacterListResDto(
-            characterPage.stream().toList(),  // 데이터
-            characterPage.isLast()  // 페이지네이션 마지막 여부
-        );
-    }
+	public List<CharacterResDto> getCharacterList() {
+		Long memberId = getMember().getId();
+		List<CharacterResDto> list = characterRepository.findAll(memberId);
 
-    public CharacterResDto getCharacter(Long id) {
-        Long memberId = getMember().getId();
-        CharacterResDto characterResDto = characterRepository.findByCharacterIdAndMemberId(id, memberId);
+		Long mainCharacterId = getMember().getCharacter().getId();
 
-        if(characterResDto.getUnlockStatus() && !characterResDto.getIsCheck())
-            characterResDto.setIsCheck(true);
+		for (CharacterResDto characterResDto : list) {
+			if(characterResDto.getId().equals(mainCharacterId)){
+				characterResDto.setIsMain(true);
+			}
+		}
+		return list;  // 페이지 엔티티 조회
 
-        UnlockedCharacterId unlockedCharacterId = UnlockedCharacterId.builder()  // 캐릭터 생성
-            .characterId(id)
-            .memberId(memberId)
-            .build();
+	}
 
-        unlockedCharacterRepository.save(UnlockedCharacter.builder()
-            .id(unlockedCharacterId)
-            .isCheck(characterResDto.getIsCheck())
-            .build()
-        );
+	public CharacterResDto getCharacter(Long id) {
+		Long memberId = getMember().getId();
+		CharacterResDto characterResDto = characterRepository.findByCharacterIdAndMemberId(id, memberId);
 
-        return characterResDto;
-    }
+		if (characterResDto.getUnlockStatus() && !characterResDto.getIsCheck())
+			characterResDto.setIsCheck(true);
 
-    public CharacterSetResDto setCharacter(Long id) throws CharacterNotUnlockException {
-        Member member = getMember();
-        Character character = characterRepository.findById(id).orElseThrow(CharacterNotFoundException::new);
-        Boolean unlock = characterRepository  // 캐릭터 비활성 상태 확인
-                .findByCharacterIdAndMemberId(id, member.getId())
-                .getUnlockStatus();
-        CharacterSetResDto characterSetResDto = new CharacterSetResDto();
-        characterSetResDto.setBefore(member.getCharacter().getId());  // 변경 전, 대표 캐릭터
+		UnlockedCharacterId unlockedCharacterId = UnlockedCharacterId.builder()  // 캐릭터 생성
+			.characterId(id)
+			.memberId(memberId)
+			.build();
 
-        if(unlock) {
-            member.updateCharacter(character);
-            characterSetResDto.setAfter(member.getCharacter().getId());  // 변경 후, 대표 캐릭터
-            memberRepository.save(member);
-        }
-        else {
-            throw new CharacterNotUnlockException();
-        }
+		unlockedCharacterRepository.save(UnlockedCharacter.builder()
+			.id(unlockedCharacterId)
+			.isCheck(characterResDto.getIsCheck())
+			.build()
+		);
 
-        return characterSetResDto;
-    }
+		return characterResDto;
+	}
+
+	public CharacterSetResDto setCharacter(Long id) throws CharacterNotUnlockException {
+		Member member = getMember();
+		Character character = characterRepository.findById(id).orElseThrow(CharacterNotFoundException::new);
+		Boolean unlock = characterRepository  // 캐릭터 비활성 상태 확인
+			.findByCharacterIdAndMemberId(id, member.getId())
+			.getUnlockStatus();
+		CharacterSetResDto characterSetResDto = new CharacterSetResDto();
+		characterSetResDto.setBefore(member.getCharacter().getId());  // 변경 전, 대표 캐릭터
+
+		if (unlock) {
+			member.updateCharacter(character);
+			characterSetResDto.setAfter(member.getCharacter().getId());  // 변경 후, 대표 캐릭터
+			memberRepository.save(member);
+		} else {
+			throw new CharacterNotUnlockException();
+		}
+
+		return characterSetResDto;
+	}
 }

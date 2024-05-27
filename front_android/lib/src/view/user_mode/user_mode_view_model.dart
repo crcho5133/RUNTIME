@@ -47,6 +47,14 @@ class UserModeViewModel with ChangeNotifier {
 
   final userModeRoomRepository = UserModeRoomRepository();
 
+  // 비밀방 여부
+  bool _isPrivateRoom = false;
+  bool get isPrivateRoom => _isPrivateRoom;
+  void setIsPrivateRoom(bool value) {
+    _isPrivateRoom = value;
+    notifyListeners();
+  }
+
   bool get hasNext => userModeRoomRepository.hasNext;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -107,24 +115,48 @@ class UserModeViewModel with ChangeNotifier {
   double _distance = 3; // 목표 거리
   double get distance => _distance;
   void setDistance(double value) {
+    print(value);
     switch (value) {
+      case 0.1:
       case 1:
-      case 2:
       case 3:
-      case 4:
       case 5:
         _distance = value;
         notifyListeners();
         break;
+      case 2:
+        if (_distance == 1) {
+          _distance = 3;
+        } else {
+          _distance = 1;
+        }
+        notifyListeners();
+        break;
+      case 4:
+        if (_distance == 3) {
+          _distance = 5;
+        } else {
+          _distance = 3;
+        }
+        notifyListeners();
+        break;
+      default:
+        notifyListeners();
     }
   }
 
   int _capacity = 4; // 정원
   int get capacity => _capacity;
   void setCapacity(double value) {
-    if (value <= 5) {
-      _capacity = value.toInt();
-      notifyListeners();
+    switch (value) {
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        _capacity = value.toInt();
+        notifyListeners();
+        break;
     }
   }
 
